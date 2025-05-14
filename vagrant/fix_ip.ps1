@@ -3,4 +3,8 @@
 
 param ([String] $ip)
 
-netsh.exe int ip set address Ethernet1 static $ip 255.255.255.0
+$iface = Get-NetIPAddress | Where-Object { $_.IPAddress -like '169.254.*' }
+
+if ($iface) {
+  New-NetIPAddress -InterfaceAlias $iface.InterfaceAlias -IPAddress $ip -PrefixLength 24
+}

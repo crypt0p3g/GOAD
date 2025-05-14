@@ -65,6 +65,11 @@
     IPAddresses:
       - "{{dns_server_forwarder}}"
 
+- name: Reset DNS to auto on {{nat_adapter}}
+  ansible.windows.win_dns_client:
+    adapter_names: "{{nat_adapter}}"
+    dns_servers: []
+
 #- name: install nuget
 #  win_shell: install-packageprovider -name nuget -force
 
